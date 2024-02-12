@@ -88,6 +88,9 @@ class ARRAY_TYPE:
                 and self.payload_type == other.payload_type
             )
 
+    def __hash__(self):
+        return hash(self.__str__())
+
 
 class BITVECTOR_TYPE:
     def __init__(self, bitwidth):
@@ -104,6 +107,8 @@ class BITVECTOR_TYPE:
         #  (_ BitVec bitwidth)
         return "(_ BitVec " + str(self.bitwidth) + ")"
 
+    def __hash__(self):
+        return hash(self.__str__())
 
 class FP_TYPE:
     def __init__(self, eb, sb):
@@ -120,6 +125,8 @@ class FP_TYPE:
         # (_ FloatingPoint eb sb)
         return "(_ FloatingPoint " + str(self.eb) + " " + str(self.sb) + ")"
 
+    def __hash__(self):
+        return hash(self.__str__())
 
 # Core ops
 NOT = "not"

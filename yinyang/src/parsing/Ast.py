@@ -719,3 +719,6 @@ class Term:
 
         if self.is_var:
             return self.name + ":" + self.type
+
+    def __hash__(self):
+        return hash(self.__str__())

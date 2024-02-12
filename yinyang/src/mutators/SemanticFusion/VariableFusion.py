@@ -25,6 +25,7 @@ import random
 import copy
 import re
 import string
+from collections.abc import Iterable
 
 from yinyang.src.parsing.Ast import (
     Const, Var, Expr, Assert, DeclareConst, DeclareFun, Script
@@ -295,8 +296,9 @@ def fusion_contraints(template, var_types):
     :returns: fusion constraints (i.e. last three asserts from filled template)
     """
     arity = get_z_idx(template)
-    if "Int" in var_types or "Real" in var_types:
-        return template.commands[-(arity + 1):]
+    if isinstance(var_types, Iterable):
+        if "Int" in var_types or "Real" in var_types:
+            return template.commands[-(arity + 1):]
     return template.commands[-(arity + 1):-arity]
 
 

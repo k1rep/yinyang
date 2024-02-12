@@ -142,29 +142,40 @@ class Fuzzer:
 
         for seed in seeds:
             if self.strategy == "typefuzz":
-                script, glob = self.get_script(seed)
-                if not script:
+                try:
+                    script, glob = self.get_script(seed)
+                    if not script:
+                        continue
+                    typecheck(script, glob)
+                    script_cp = copy.deepcopy(script)
+                    unique_expr = get_unique_subterms(script_cp)
+                    self.mutator = GenTypeAwareMutation(
+                        script, self.args, unique_expr
+                    )
+                except Exception as e:
+                    logging.error("error: " + str(e))
                     continue
 
-                typecheck(script, glob)
-                script_cp = copy.deepcopy(script)
-                unique_expr = get_unique_subterms(script_cp)
-                self.mutator = GenTypeAwareMutation(
-                    script, self.args, unique_expr
-                )
 
             elif self.strategy == "opfuzz":
-                script, _ = self.get_script(seed)
-                if not script:
+                try:
+                    script, _ = self.get_script(seed)
+                    if not script:
+                        continue
+                    self.mutator = TypeAwareOpMutation(script, self.args)
+                except Exception as e:
+                    logging.error("error: " + str(e))
                     continue
-                self.mutator = TypeAwareOpMutation(script, self.args)
 
             elif self.strategy == "yinyang":
-                script1, _, script2, _ = self.get_script_pair(seed)
-                if not script1 or not script2:
+                try:
+                    script1, _, script2, _ = self.get_script_pair(seed)
+                    if not script1 or not script2:
+                        continue
+                    self.mutator = SemanticFusion(script1, script2, self.args)
+                except Exception as e:
+                    logging.error("error: " + str(e))
                     continue
-                self.mutator = SemanticFusion(script1, script2, self.args)
-
             else:
                 assert False
 

@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 import sys
+from collections.abc import Iterable
 
 sys.setrecursionlimit(100000)
 
@@ -910,6 +911,7 @@ def typecheck_expr(expr, ctxt=Context({}, {})):
         if expr.op in BV_OPS:
             return annotate(typecheck_bv_ops, expr, ctxt)
 
+    if isinstance(expr.op, Iterable):
         # FP infix ops
         if TO_FP in expr.op:
             return annotate(typecheck_to_fp, expr, ctxt)

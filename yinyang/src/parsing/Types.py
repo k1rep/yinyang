@@ -61,7 +61,7 @@ def type2ffg(typ):
         return BITVECTOR_OPTION
     else:
         # If the type is not supported by ffg.
-        return None    
+        return None
 
 
 def sort2type(sort):
@@ -84,8 +84,8 @@ class ARRAY_TYPE:
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return (
-                self.index_type == other.index_type
-                and self.payload_type == other.payload_type
+                    self.index_type == other.index_type
+                    and self.payload_type == other.payload_type
             )
 
     def __hash__(self):
@@ -110,6 +110,7 @@ class BITVECTOR_TYPE:
     def __hash__(self):
         return hash(self.__str__())
 
+
 class FP_TYPE:
     def __init__(self, eb, sb):
         self.eb = eb
@@ -127,6 +128,8 @@ class FP_TYPE:
 
     def __hash__(self):
         return hash(self.__str__())
+
+
 
 # Core ops
 NOT = "not"
@@ -152,7 +155,6 @@ LTE = "<="
 LT = "<"
 
 NUMERICAL_OPS = [UNARY_MINUS, MINUS, PLUS, MULTIPLY, ABS, GTE, GT, LTE, LT]
-
 
 # specific Int ops
 DIV = "div"
@@ -270,7 +272,6 @@ BVULE = "bvule"
 BVSLT = "bvslt"
 BVSGT = "bvsgt"
 BVSDIV = "bvsdiv"
-
 
 BV_OPS = [
     BV_CONCAT,

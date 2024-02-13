@@ -156,7 +156,6 @@ class Fuzzer:
                     logging.error("error: " + str(e))
                     continue
 
-
             elif self.strategy == "opfuzz":
                 try:
                     script, _ = self.get_script(seed)

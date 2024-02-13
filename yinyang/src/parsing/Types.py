@@ -130,7 +130,6 @@ class FP_TYPE:
         return hash(self.__str__())
 
 
-
 # Core ops
 NOT = "not"
 AND = "and"
